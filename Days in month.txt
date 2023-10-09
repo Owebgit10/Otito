@@ -1,0 +1,133 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include <stdio.h>
+
+
+
+void main() {
+
+//declaring required variables 
+
+    int month, year, days;
+
+
+
+/*asking user to input a number from 1 - 12 (the months), and a year*/
+
+
+
+    printf("Enter month (1-12): ");
+
+    scanf("%d", &month);
+
+
+
+    printf("Enter year: ");
+
+    scanf("%d", &year);
+
+
+
+
+
+/* switch on month to display days of hat month*/
+
+    switch(month) {
+
+        case 1:
+
+            days = 31;  // assigning value to days 
+
+            break;
+
+        case 2: 
+
+            if(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+
+                days = 29;
+
+            else
+
+                days = 28;
+
+            break;
+
+        case 3:
+
+            days = 31;
+
+            break;
+
+        case 4:
+
+            days = 30;
+
+            break;
+
+        case 5:
+
+            days = 31;
+
+            break;
+
+        case 6:
+
+            days = 30;
+
+            break;
+
+        case 7:
+
+            days = 31;
+
+            break;
+
+        case 8:
+
+            days = 31;
+
+            break;
+
+        case 9:
+
+            days = 30;
+
+            break;
+
+        case 10:
+
+            days = 31;
+
+            break;
+
+        case 11:
+
+            days = 30;
+
+            break;
+
+        case 12:
+
+            days = 31;
+
+            break;
+
+        default:
+
+            printf("Invalid month!\n");
+
+            return 0;
+
+    }
+
+//printing days in that month 
+
+    printf("Number of days in month %d of year %d is %d\n", month, year, days);
+
+
+
+    getchar();
+
+getchar();
+
+}
