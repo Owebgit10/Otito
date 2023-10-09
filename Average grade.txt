@@ -1,0 +1,137 @@
+// Include necessary header files 
+
+#define _CRT_SECURE_NO_WARNINGS 1 
+
+#include <stdio.h> 
+
+  
+
+// Define constants for the number of exams and students 
+
+#define EXAMS 3 
+
+#define STUDENTS 4 
+
+  
+
+// Main function 
+
+void main() 
+
+{ 
+
+    // Declare 2D array to store exam results for each student 
+
+    int exams[STUDENTS][EXAMS]; 
+
+  
+
+    // Declare 1D array to store average grade for each student 
+
+    float averages[STUDENTS]; 
+
+  
+
+    // Input the exam results for each student 
+
+    for (int i = 0; i < STUDENTS; i++) 
+
+    { 
+
+        // Prompt user to input exam results for current student 
+
+        printf("Input the %d results for student %d \n", EXAMS, (i + 1)); 
+
+  
+
+        // Input the exam results for each exam 
+
+        for (int j = 0; j < EXAMS; j++) 
+
+            scanf("%d", &exams[i][j]); 
+
+  
+
+        // Calculate the average grade for the current student 
+
+        float sum = 0; 
+
+        for (int j = 0; j < EXAMS; j++) 
+
+            sum += exams[i][j]; 
+
+        averages[i] = sum / EXAMS; 
+
+    } 
+
+  
+
+    // Display the exam results and average grade for each student 
+
+    printf("\n\n"); 
+
+    for (int i = 0; i < STUDENTS; i++) 
+
+    { 
+
+        // Print the header for the current student's exam results 
+
+        printf("The %d results for student %d are...\n", EXAMS, (i + 1)); 
+
+  
+
+        // Print the exam results for each exam 
+
+        for (int j = 0; j < EXAMS; j++) 
+
+            printf("%d%% ", exams[i][j]); 
+
+  
+
+        // Print the average grade for the current student 
+
+        printf("\nAverage grade: %.2f%%\n", averages[i]); 
+
+    } 
+
+  
+
+    // Prompt user to input which student's grade they wish to display 
+
+    int choice; 
+
+    printf("Which student's grade would you like to display? Enter a number between 1 and %d: ", STUDENTS); 
+
+    scanf("%d", &choice); 
+
+  
+
+    // Check if the input is valid 
+
+    if (choice >= 1 && choice <= STUDENTS) 
+
+    { 
+
+        // Display the selected student's exam results and average grade 
+
+        printf("\nThe %d results for student %d are...\n", EXAMS, choice); 
+
+        for (int j = 0; j < EXAMS; j++) 
+
+            printf("%d%% ", exams[choice - 1][j]); 
+
+        printf("\nAverage grade: %.2f%%\n", averages[choice - 1]); 
+
+    } 
+
+    else 
+
+    { 
+
+        printf("Invalid input! Please enter a number between 1 and %d.\n", STUDENTS); 
+
+    } 
+
+} 
+
+ 
