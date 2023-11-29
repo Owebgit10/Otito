@@ -1,0 +1,63 @@
+package mythreeservlets;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class LoginServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        try {
+            String dbURL = "jdbc:mysql://localhost:3306/loyalty_card_app";
+            String dbUser = "root";
+            String dbPassword = "root";
+
+            Connection connection;
+            connection = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/loyalty_card_applicaion", "root", "root");
+
+            String selectQuery = "SELECT username, loyalty_points FROM Users WHERE username = ? AND password = ?";
+            PreparedStatement prep = connection.prepareStatement(selectQuery);
+            prep.setString(1, username);
+            prep.setString(2, password);
+
+            ResultSet resultSet = prep.executeQuery();
+
+            if (resultSet.next()) {
+                String foundUsername = resultSet.getString("username");
+                int loyaltyPoints = resultSet.getInt("loyalty_points");
+
+                response.setContentType("text/html");
+                PrintWriter out = response.getWriter();
+                out.println("<html><body><h1>Login Successful</h1>");
+                out.println("<p>Welcome, " + foundUsername + "! Your loyalty points: " + loyaltyPoints + "</p></body></html>");
+            } else {
+                response.setContentType("text/html");
+                PrintWriter out = response.getWriter();
+                out.println("<html><body><h1>Login Error</h1>");
+                out.println("<p>Invalid username or password.</p></body></html>");
+            }
+
+            resultSet.close();
+            prep.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println("<html><body><h1>Login Error</h1>");
+            out.println("<p>An error occurred during login.</p></body></html>");
+        }
+    }
